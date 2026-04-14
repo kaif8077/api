@@ -8,16 +8,16 @@ app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT || 3000;
 const users = [
-  { id: 1, name: "Kaif", age: 22 },
-  { id: 2, name: "Ali", age: 23 },
-  { id: 3, name: "Rahul", age: 21 },
-  { id: 4, name: "Aman", age: 24 },
-  { id: 5, name: "Zaid", age: 22 },
-  { id: 6, name: "Rohit", age: 25 },
-  { id: 7, name: "Imran", age: 23 },
-  { id: 8, name: "Arjun", age: 22 },
-  { id: 9, name: "Vikram", age: 26 },
-  { id: 10, name: "Sameer", age: 24 }
+  { id: 1, name: "Kaif", age: 22, email: "kaif@gmail.com", password: "123456" },
+  { id: 2, name: "Ali", age: 23, email: "ali@gmail.com", password: "123456" },
+  { id: 3, name: "Rahul", age: 21, email: "rahul@gmail.com", password: "123456" },
+  { id: 4, name: "Aman", age: 24, email: "aman@gmail.com", password: "123456" },
+  { id: 5, name: "Zaid", age: 22, email: "zaid@gmail.com", password: "123456" },
+  { id: 6, name: "Rohit", age: 25, email: "rohit@gmail.com", password: "123456" },
+  { id: 7, name: "Imran", age: 23, email: "imran@gmail.com", password: "123456" },
+  { id: 8, name: "Arjun", age: 22, email: "arjun@gmail.com", password: "123456" },
+  { id: 9, name: "Vikram", age: 26, email: "vikram@gmail.com", password: "123456" },
+  { id: 10, name: "Sameer", age: 24, email: "sameer@gmail.com", password: "123456" }
 ];
 
 // GET all users
