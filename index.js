@@ -6,7 +6,10 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+
 const PORT = process.env.PORT || 3000;
+
+// ✅ Default users (fixed)
 const users = [
   { id: 1, name: "Kaif", age: 22, email: "kaif@gmail.com", password: "123456" },
   { id: 2, name: "Ali", age: 23, email: "ali@gmail.com", password: "123456" },
@@ -20,22 +23,57 @@ const users = [
   { id: 10, name: "Sameer", age: 24, email: "sameer@gmail.com", password: "123456" }
 ];
 
-// GET all users
+// 🔹 Root
+app.get("/", (req, res) => {
+  res.json({
+    message: "API is running 🚀",
+    endpoints: {
+      getUsers: "/users",
+      addUser: "POST /users"
+    }
+  });
+});
+
+// 🔹 GET all users
 app.get("/users", (req, res) => {
   res.json(users);
 });
 
-app.get("/", (req, res) => {
-  res.send(`API is running 🚀${PORT}`);
-});
-// POST new user
+// 🔥 POST (controlled push)
 app.post("/users", (req, res) => {
-  const newUser = { id: users.length + 1, ...req.body };
+  const { name, age, email, password } = req.body;
+
+  // ✅ validation
+  if (!name || !age || !email || !password) {
+    return res.status(400).json({
+      error: "All fields are required"
+    });
+  }
+
+  // ✅ duplicate email check
+  const existingUser = users.find(u => u.email === email);
+  if (existingUser) {
+    return res.status(409).json({
+      error: "Email already exists"
+    });
+  }
+
+  // ✅ new user
+  const newUser = {
+    id: Date.now(), // better unique id
+    name,
+    age,
+    email,
+    password
+  };
+
   users.push(newUser);
-  res.json(newUser);
+
+  res.status(201).json({
+    message: "User added successfully",
+    user: newUser
+  });
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
