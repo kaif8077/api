@@ -6,7 +6,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+const PORT = process.env.PORT || 3000;
 const users = [
   { id: 1, name: "Kaif", age: 22 },
   { id: 2, name: "Ali", age: 23 },
@@ -25,6 +25,9 @@ app.get("/users", (req, res) => {
   res.json(users);
 });
 
+app.get("/", (req, res) => {
+  res.send(`API is running 🚀${PORT}`);
+});
 // POST new user
 app.post("/users", (req, res) => {
   const newUser = { id: users.length + 1, ...req.body };
@@ -32,7 +35,7 @@ app.post("/users", (req, res) => {
   res.json(newUser);
 });
 
-const PORT = process.env.PORT || 3000;
+
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
